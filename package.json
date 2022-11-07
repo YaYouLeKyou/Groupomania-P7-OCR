@@ -1,0 +1,20 @@
+{
+  "name": "p7-groupomania",
+  "version": "1.0.0",
+  "description": "Réseau social d'entreprise Groupomania",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Yann Hadiouche",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {}
+}
