@@ -2,7 +2,7 @@
   <header class="container mx-auto border-b-2 border-green-400 bg-gray-900">
     <nav class="flex items-center justify-between flex-wrap p-6">
       <div class="flex items-center flex-no-shrink text-white mr-6">
-        <a href="http://localhost:8080/welcome">
+        <a href="http://localhost:8081/welcome">
           <img
             width="158"
             height="78"
@@ -26,7 +26,7 @@
         <div class="text-sm lg:flex-grow">
           <router-link
             to="/feed"
-            href="http://localhost:8080/feed"
+            href="http://localhost:8081/feed"
             class="block mt-4 lg:inline-block lg:mt-0 text-lg text-teal-lighter text-green-400 hover:text-white mr-4"
             aria-label="Accéder aux articles"
           >
@@ -34,7 +34,7 @@
           </router-link>
           <router-link
             to="/profile/:id"
-            href="http://localhost:8080/profile/:id"
+            href="http://localhost:8081/profile/:id"
             class="block mt-4 lg:inline-block lg:mt-0 text-lg text-teal-lighter text-white hover:text-green-400"
             aria-label="Accéder à mon compte"
           >
@@ -42,7 +42,7 @@
           </router-link>
           <router-link
             to="/Users"
-            href="http://localhost:8080/Users"
+            href="http://localhost:8081/Users"
             class="block ml-4 mt-4 lg:inline-block lg:mt-0 text-lg text-teal-lighter text-white hover:text-green-400"
             aria-label="Accéder à la page membres"
           >
