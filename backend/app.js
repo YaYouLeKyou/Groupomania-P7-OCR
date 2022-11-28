@@ -1,7 +1,24 @@
 const express = require('express'); // Importation du framework : création et gestion du serveur
-
+const mysql = require('mysql');
 const cors = require('cors');
+require('dotenv').config();
 
+// Création de la connexion
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DB
+});
+console.log(process.env.DB_USER)
+
+// Connection 
+db.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('MySQL est connecté');
+});
 
 
 const app = express(); // Application
