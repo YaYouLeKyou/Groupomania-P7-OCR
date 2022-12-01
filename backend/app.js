@@ -1,25 +1,10 @@
 const express = require('express'); // Importation du framework : création et gestion du serveur
-const mysql = require('mysql');
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 require('dotenv').config();
 
-// Création de la connexion
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DB
-});
-console.log(process.env.DB_USER)
-
-// Connection 
-db.connect((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('MySQL est connecté');
-});
-
+const userRoutes = require("./routes/user");
 
 const app = express(); // Application
 
@@ -31,6 +16,11 @@ app.use((req, res, next) => {
     next(); // Appel de next pour exécuter les autres fonctions
 });
 
+app.use(bodyParser.json());                                                // Définition de la fonction json comme middleware global
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(helmet());
 
+app.use("/api/auth", userRoutes);
 
 module.exports = app; // Exportation de l\'app : utilisation depuis le serveur Node
