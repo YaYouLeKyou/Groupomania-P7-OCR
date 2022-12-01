@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');                                           // Importation du package de chiffrement bcrytp
 const jwt = require('jsonwebtoken');                                        // Importation du package jsonwebtoken
 const User = require('../models/user');                                     // Importation modèle User
-
-
+const fs = require('fs');                                                   // 
+const Utils = require('../libs/utils.js');
 
 // Inscription
 exports.signup = (req, res, next) => {
@@ -87,6 +87,49 @@ exports.getOneUser = (req, res, next) => {
       res.status(200).json(result)
     }
   })
+};
+
+// Mofifier un pseudo
+exports.updateOneUserPseudo = (req, res, next) => {
+  let myToken = Utils.getReqToken(req);
+  // check pas d'usurpation de user_id
+  if ((!myToken.isAdmin) && (myToken.userId != req.params.id)) {
+    return res.status(401).json({ message: 'Non authorisé' });
+  }
+  let user = {
+    'id': req.params.id,
+    'pseudo': req.body.pseudo,
+  }
+  User.modifyPseudo(user, (err, result) => {
+    if (err) {
+      return res.status(400).json({ message: 'Modification non effectuée' });
+    }
+    res.status(201).json({
+      pseudo: result.pseudo
+    })
+  })
+};
+
+// Mofifier une profilPic
+exports.updateOneUserFile = (req, res, next) => {
+  let myToken = Utils.getReqToken(req);
+  // check pas d'usurpation de user_id
+  if ((!myToken.isAdmin) && (myToken.userId != req.params.id)) {
+    return res.status(401).json({ message: 'Non authorisé' });
+  }
+
+  let user = {
+    'id': req.params.id,
+    'profilPic': req.file ? req.file.filename : null,
+  }
+  User.modifyProfilPic(user, (err, result) => {
+    if (err) {
+      return res.status(400).json({ message: 'BACK Modification non effectuée' });
+    }
+    res.status(201).json({
+      profilPic: req.file.filename,
+    });
+  });
 };
 
 // Supprimer un user

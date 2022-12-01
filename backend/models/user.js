@@ -1,6 +1,6 @@
 // Création des modèles User
 const db = require('./db');
-
+const Utils = require('../libs/utils.js');
 
 const User = function (user) {
     this.pseudo = user.pseudo,
