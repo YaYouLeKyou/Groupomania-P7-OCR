@@ -1,6 +1,6 @@
 const express = require("express");// Importation framework express
 const router = express.Router(); // Création routeur avec la méthode router() d'express
-
+const rateLimit = require("express-rate-limit");    // Contre les attaques de force brute
 
 const auth = require('../middleware/auth');
 const admin = require('../middleware/adminControl')
@@ -11,11 +11,16 @@ const userController = require("../controllers/user");
 // Importation du middleware verifyPassword pour contrôler la complexité du mot de passe
 const verifyPassword = require("../middleware/verifyPassword");
 
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes de test
+    max: 5 // 5 essais maximum par adresse IP
+});
+
 // Route POST pour l'inscription d'un utilisateur
 router.post("/signup", verifyPassword, userController.signup);
 
 // Route POST pour la connexion d'un utilisateur
-router.post("/login", userController.login);
+router.post("/login", limiter, userController.login);
 
 // Route GET pour afficher tous les utilisateurs
 router.get('/users', userController.getAllUsers);
