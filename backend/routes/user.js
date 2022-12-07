@@ -4,6 +4,7 @@ const rateLimit = require("express-rate-limit");    // Contre les attaques de fo
 
 const auth = require('../middleware/auth');
 const admin = require('../middleware/adminControl')
+const multer = require('../middleware/multer-config');  // Importation du middleware multer pour les images
 
 // Importation des logiques métier pour les routes
 const userController = require("../controllers/user");
@@ -26,7 +27,7 @@ router.post("/login", limiter, userController.login);
 router.get('/users', userController.getAllUsers);
 
 // Route GET pour afficher un user
-router.get('/profile/:id', auth, userController.getOneUser);
+router.get('/profile/:id', auth, multer, userController.getOneUser);
 
 // Route DELETE pour supprimer un user
 router.delete('/users/:id', auth, admin, userController.deactivateUser);
